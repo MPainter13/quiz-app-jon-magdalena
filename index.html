@@ -8,16 +8,54 @@
     <title>Quiz App</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet"
         type="text/css" />
-    <link href="app.css" rel="stylesheet" type="text/css" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <header>
-        <h1>The name of your quiz</h1>
+        <h1>Capitals</h1>
     </header>
-    <main></main>
+    <main>
+        <div class='title-page quiz-container'>
+            <h2>Capitals Quiz</h2>
+            <button>Start Quiz</button>
+        </div>
+        <div class='question quiz-container'>
+            <h2 class='question'>Question</h2>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+            <form action="">
+                <ul>
+                    <li>answer1</li>
+                    <li>answer2</li>
+                    <li>answer3</li>
+                    <li>answer4</li>
+                </ul>
+            </form>
+            <button>Submit Answer</button>
+        </div>
+        <div class='correct-answer quiz-container'>
+            <h2>Correct</h2>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+            <button>Next Question</button>
+        </div>
+        <div class='wrong-answer quiz-container'>
+            <h2>Incorrect</h2>
+            <p>Correct Answer</p>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+            <button>Next Question</button>
+        </div>
+        <div class='end-screen quiz-container'>
+            <h2>End of Quiz</h2>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+            <button>Retry</button>
+        </div>
+    </main>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>

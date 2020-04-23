@@ -7,3 +7,33 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+* {
+    box-sizing: border-box;   
+}
+
+body {
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid black;
+    
+}
+
+.quiz-container {
+    margin: 0 auto;
+    border: 1px solid black;
+    padding: 10px;
+    max-width: 90%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+ul {
+    list-style-position: inside;
+}
+
+button {
+    align-self: center;
+}
