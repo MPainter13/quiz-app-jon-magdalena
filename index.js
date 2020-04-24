@@ -80,64 +80,167 @@ const store = {
   // These functions return HTML templates
 
 
-
-
-  function generateTitlePageHTML() {
+// need to track correct and incorrect answers 
+// make sure an answer is chosen
+function generateTitlePageHTML() {
+    console.log('title ran');
     return `
     <div class='title-page quiz-container'>
-    <h2>Capitals Quiz</h2>
+        <h2>Capitals Quiz</h2>
+        <button class='start-quiz'>Start Quiz</button>
+    </div>`;
+    
+}
 
-    <button>Start Quiz</button>
-</div>`;
-  }
+// need to link questions and answers
+function generateQuestionPageHtml() {
+    console.log('question ran')
+    // let currentQuestion = store.questions[store.questionNumber]
+    return `
+    <div class='question quiz-container'>
+        <h2 class='question'>Question</h2>
+        <div>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+        </div>
+        <form action="">
+            <ul>
+                <li>answer1</li>
+                <li>answer2</li>
+                <li>answer3</li>
+                <li>answer4</li>
+            </ul>
+        </form>
+        <button class='submit-answer'>Submit Answer</button>
+    </div>`;
+    
+}
 
-  function generateQuestionPageHtml() {
+function generateCorrectPageHTML() {
+    console.log('correct ran')
+    return `
+    <div class='correct-answer quiz-container'>
+        <h2>Correct</h2>
+        <div>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+        </div>
+        <button class='next-question'>Next Question</button>
+    </div>`;
+    
+}
 
-  }
+function generateWrongPageHTML() {
+    console.log('wrong ran')
+    return `
+    <div class='wrong-answer quiz-container'>
+        <h2>Incorrect</h2>
+        <p>Correct Answer</p>
+        <div>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+        </div>
+        <button class='next-question'>Next Question</button>
+    </div>`;
+    
+}
 
-  function generateCorrectPageHTML() {
+function generateEndPageHTML() {
+    console.log('end ran')
+    return `
+    <div class='end-screen quiz-container'>
+        <h2>End of Quiz</h2>
+        <div>
+            <p class='correct'>correct answers</p>
+            <p class='incorrect'>incorrect answers</p>
+        </div>
+        <button class='retry'>Retry</button>
+    </div>`;
+    
+}
 
-  }
-
-  function generateWrongPageHTML() {
-
-  }
-
-  function generateEndPageHTML() {
-
-  }
+// function generateAnswerHtml() {
+//     const answersArry = store.questionNumber[store.questionNumber].answers;
+// }
 
   /********** RENDER FUNCTION(S) **********/
 
   // This function conditionally replaces the contents of the <main> tag based on the state of the store
 
-
-function renderQuizApp() {
-
+function renderTitlePage() {
+    const titlePage = generateTitlePageHTML();
+    $('.quiz-app').html(titlePage);
 }
 
+function renderQuestion() {
+    const question = generateQuestionPageHtml();
+    $('.quiz-app').html(question);
+}
+
+function renderCorrect() {
+    const correct = generateCorrectPageHTML;
+    $('.quiz-app').html(correct);
+}
+
+function renderWrong() {
+    const wrong = generateWrongPageHTML;
+    $('.quiz-app').html(wrong);
+}
+
+function renderEnd() {
+    const end = generateEndPageHTML;
+    $('.quiz-app').html(end);
+}
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
 
 function clickStartButton() {
-
+    $('.quiz-app').on('click', '.start-quiz', event => {
+        event.preventDefault();
+        console.log('startbutton');
+        renderQuestion();
+    })
 }
 
 function clickSubmitButton() {
-
+    $('.quiz-app').on('click', '.submit-answer', event => {
+        event.preventDefault();
+        console.log('submit');
+        // conditional needed to check if answer was right or wrong
+        renderCorrect();
+        renderWrong();
+    })
 }
 
 function clickNextQuestion() {
-
+    $('.quiz-app').on('click', '.next-question', event => {
+        event.preventDefault();
+        console.log('next');
+        // conditional needed to check if all the questions were 
+        // answered so we go to end sreen or to next question
+        renderQuestion();
+        renderEnd();
+    })
 }
 
 function clickRetry() {
-    
+    $('.quiz-app').on('click', '.retry', event => {
+        event.preventDefault();
+        console.log('retry');
+        renderTitlePage();
+    })
+}
+
+// functions go here
+const handleQuizApp = function () {
+    renderTitlePage();
+    clickStartButton();
+    clickSubmitButton();
+    clickNextQuestion();
+    clickRetry();
 }
 
 
-
-
-  
+$(handleQuizApp);
