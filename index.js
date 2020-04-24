@@ -58,8 +58,11 @@ const store = {
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  correct: 0,
+  wrong: 0
 };
+
 
 /**
    * 
@@ -81,10 +84,7 @@ const store = {
 // These functions return HTML templates
 
 
-// need to track correct and incorrect answers 
-// make sure an answer is chosen
 function generateTitlePageHTML() {
-  console.log('title ran');
   return `
     <div class='title-page quiz-container'>
         <h2>Capitals Quiz</h2>
@@ -93,33 +93,12 @@ function generateTitlePageHTML() {
 
 }
 
-// function generateQuestionNumberAndScoreHTML() {
-//     const  = store.questions[store.currentQuestion].answers;
-//     let answersHTML = '';
-//     let i = 0;
-
-//     answersArray.forEach(answer => {
-//         answersHTML += `
-//         <div id="option-container-${i}">
-//             <input type="radio" name="options" id="option${i + 1}" value= "${answer}"
-//             tabindex ="${i + 1}" required>
-//             <label for="option${i + 1}"> ${answer}</label>
-//         </div>
-//         `;
-//     });
-//     console.log(answersHTML);
-//     //return answersHTML;
-// }
-
-// need to link questions and answers
 function generateQuestionPageHtml() {
-  console.log('question ran')
   let currentQuestion = store.questions[store.questionNumber]
-  console.log(currentQuestion)
   let answersHTML = '';
   currentQuestion.answers.forEach((answer, i) => {
     answersHTML += `
-    <div id="option-container-${i}">
+    <div class='option-container' id="option-container-${i}">
         <input type="radio" name="options" id="option${i + 1}" value= "${answer}"
         tabindex ="${i + 1}" required>
         <label for="option${i + 1}"> ${answer}</label>
@@ -130,25 +109,24 @@ function generateQuestionPageHtml() {
     <div class='question quiz-container'>
         <h2 class='question'>${currentQuestion.question}</h2>
         <div>
-            <p class='correct'>correct answers</p>
-            <p class='incorrect'>incorrect answers</p>
+            <p class='correct'>Correct: ${store.correct} of ${store.questions.length}</p>
+            <p class='incorrect'>Incorrect: ${store.wrong} of ${store.questions.length}</p>
         </div>
-        <form action="">
+        <form class='answer-choices' action="">
             ${answersHTML}
+        <button type='submit' class='submit-answer'>Submit Answer</button>
         </form>
-        <button class='submit-answer'>Submit Answer</button>
     </div>`;
 
 }
 
 function generateCorrectPageHTML() {
-  console.log('correct ran')
   return `
     <div class='correct-answer quiz-container'>
         <h2>Correct</h2>
         <div>
-            <p class='correct'>correct answers</p>
-            <p class='incorrect'>incorrect answers</p>
+            <p class='correct'>Correct: ${store.correct} of ${store.questions.length}</p>
+            <p class='incorrect'>Incorrect: ${store.wrong} of ${store.questions.length}</p>
         </div>
         <button class='next-question'>Next Question</button>
     </div>`;
@@ -156,14 +134,14 @@ function generateCorrectPageHTML() {
 }
 
 function generateWrongPageHTML() {
-  console.log('wrong ran')
+  let currentQuestion = store.questions[store.questionNumber]
   return `
     <div class='wrong-answer quiz-container'>
         <h2>Incorrect</h2>
-        <p>Correct Answer</p>
+        <p>Correct Answer: ${currentQuestion.correctAnswer}</p>
         <div>
-            <p class='correct'>correct answers</p>
-            <p class='incorrect'>incorrect answers</p>
+            <p class='correct'>Correct: ${store.correct} of ${store.questions.length}</p>
+            <p class='incorrect'>Incorrect: ${store.wrong} of ${store.questions.length}</</p>
         </div>
         <button class='next-question'>Next Question</button>
     </div>`;
@@ -171,22 +149,18 @@ function generateWrongPageHTML() {
 }
 
 function generateEndPageHTML() {
-  console.log('end ran')
   return `
     <div class='end-screen quiz-container'>
         <h2>End of Quiz</h2>
         <div>
-            <p class='correct'>correct answers</p>
-            <p class='incorrect'>incorrect answers</p>
+            <p class='correct'>Correct: ${store.correct} of ${store.questions.length}</p>
+            <p class='incorrect'>Incorrect: ${store.wrong} of ${store.questions.length}</p>
         </div>
         <button class='retry'>Retry</button>
     </div>`;
 
 }
 
-// function generateAnswerHtml() {
-//     const answersArry = store.questionNumber[store.questionNumber].answers;
-// }
 
 /********** RENDER FUNCTION(S) **********/
 
@@ -224,29 +198,33 @@ function renderEnd() {
 function clickStartButton() {
   $('.quiz-app').on('click', '.start-quiz', event => {
     event.preventDefault();
-    console.log('startbutton');
     store.questionNumber = 0;
+    store.correct = 0;
+    store.wrong = 0;
     renderQuestion();
   })
 }
 
 function clickSubmitButton() {
-  $('.quiz-app').on('click', '.submit-answer', event => {
+  $('.quiz-app').on('submit', '.answer-choices', event => {
     event.preventDefault();
-    console.log('submit');
-    // conditional needed to check if answer was right or wrong
-    renderCorrect();
-    renderWrong();
+    let currentQuestion = store.questions[store.questionNumber]
+    let selectedOption = $('input[name=options]:checked').val();
+    if (selectedOption === currentQuestion.correctAnswer) {
+      store.correct += 1;
+      renderCorrect(); 
+    }
+    else {
+      store.wrong += 1;
+      renderWrong();
+}
   })
 }
 
 function clickNextQuestion() {
   $('.quiz-app').on('click', '.next-question', event => {
     event.preventDefault();
-    console.log('next');
     store.questionNumber += 1;
-    // conditional needed to check if all the questions were 
-    // answered so we go to end sreen or to next question
     if (store.questionNumber >= store.questions.length) {
       renderEnd();
     }
@@ -259,7 +237,6 @@ function clickNextQuestion() {
 function clickRetry() {
   $('.quiz-app').on('click', '.retry', event => {
     event.preventDefault();
-    console.log('retry');
     renderTitlePage();
   })
 }
@@ -272,6 +249,5 @@ const handleQuizApp = function () {
   clickNextQuestion();
   clickRetry();
 }
-
 
 $(handleQuizApp);
