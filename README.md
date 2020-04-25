@@ -1,1 +1,2 @@
-Boilerplate app structure for Quiz App project
+Magdalena Painter
+Jon Oliver

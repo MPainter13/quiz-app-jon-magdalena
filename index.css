@@ -37,3 +37,11 @@ button {
 .option-container {
     margin: 10px;
 }
+
+.correct {
+    color: rgb(40, 119, 40);
+} 
+
+.incorrect {
+    color: red;
+}
