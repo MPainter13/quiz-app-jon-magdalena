@@ -56,11 +56,31 @@ button {
 }
 
 .correct {
-    font-size: 20px;
+    font-size: 25px;
+    color: rgb(40, 119, 40);
+} 
+
+.correct-head {
+    font-size: 40px;
     color: rgb(40, 119, 40);
 } 
 
 .incorrect {
-    font-size: 20px;
+    font-size: 25px;
     color: red;
 }
+
+.incorrect-head {
+    font-size: 40px;
+    color: red;
+}
+
+.answer-correct {
+    font-size: 25px;
+}
+
+@media screen and (max-width: 900px) {
+    .quiz-container {
+        max-width: 100%;
+    }
+} 

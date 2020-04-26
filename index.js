@@ -123,7 +123,7 @@ function generateQuestionPageHtml() {
 function generateCorrectPageHTML() {
   return `
     <div class='correct-answer quiz-container'>
-        <h2 class='correct'>Correct :)</h2>
+        <h2 class='correct-head'>Correct :)</h2>
         <div>
             <p class='correct'>Correct: ${store.correct} of ${store.questions.length}</p>
             <p class='incorrect'>Incorrect: ${store.wrong} of ${store.questions.length}</p>
@@ -137,8 +137,8 @@ function generateWrongPageHTML() {
   let currentQuestion = store.questions[store.questionNumber]
   return `
     <div class='wrong-answer quiz-container'>
-        <h2 class='incorrect'>Incorrect :(</h2>
-        <p>Correct Answer: ${currentQuestion.correctAnswer}</p>
+        <h2 class='incorrect-head'>Incorrect :(</h2>
+        <p class='answer-correct'>Correct Answer: ${currentQuestion.correctAnswer}</p>
         <div>
             <p class='correct'>Correct: ${store.correct} of ${store.questions.length}</p>
             <p class='incorrect'>Incorrect: ${store.wrong} of ${store.questions.length}</</p>
