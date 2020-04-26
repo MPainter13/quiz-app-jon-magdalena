@@ -13,35 +13,54 @@
 }
 
 body {
+    background-color: rgb(147, 201, 245);
     text-align: center;
     margin: 0 auto;
-    border: 1px solid black;
+    padding: 50px;
     
 }
 
+h1 {
+    font-size: 50px;
+    margin-bottom: 70px;
+}
+
 .quiz-container {
+    background-color: rgb(192, 189, 189);
     margin: 0 auto;
     border: 1px solid black;
+    border-radius: 15px;
     padding: 10px;
-    max-width: 90%;
+    max-width: 40%;
     height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
+.question {
+    font-size: 35px;
+}
+
 button {
+    font-size: x-large;
     align-self: center;
+    border: 1px solid;
+    box-shadow: 5px 10px #888888;
+    cursor: pointer;
 }
 
 .option-container {
+    font-size: 25px;
     margin: 10px;
 }
 
 .correct {
+    font-size: 20px;
     color: rgb(40, 119, 40);
 } 
 
 .incorrect {
+    font-size: 20px;
     color: red;
 }
